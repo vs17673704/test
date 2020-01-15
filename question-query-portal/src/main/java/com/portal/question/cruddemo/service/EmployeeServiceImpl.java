@@ -1,4 +1,4 @@
-package com.luv2code.springboot.cruddemo.service;
+package com.portal.question.cruddemo.service;
 
 import java.util.List;
 
@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.luv2code.springboot.cruddemo.dao.EmployeeDAO;
-import com.luv2code.springboot.cruddemo.entity.Employee;
+import com.portal.question.cruddemo.dao.EmployeeDAO;
+import com.portal.question.cruddemo.entity.Employee;
+import com.portal.question.cruddemo.entity.Tags;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -43,6 +44,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeDAO.deleteById(theId);
 	}
 
+	@Override
+	@Transactional
+	public void saveTag(Tags tag) {
+		employeeDAO.save(tag);
+	}
 }
 
 

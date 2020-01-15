@@ -1,4 +1,4 @@
-package com.luv2code.springboot.cruddemo.dao;
+package com.portal.question.cruddemo.dao;
 
 import java.util.List;
 
@@ -9,7 +9,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.luv2code.springboot.cruddemo.entity.Employee;
+import com.portal.question.cruddemo.entity.Employee;
+import com.portal.question.cruddemo.entity.Tags;
 
 @Repository
 public class EmployeeDAOHibernateImpl implements EmployeeDAO {
@@ -82,6 +83,18 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 		
 		theQuery.executeUpdate();
 	}
+
+
+	@Override
+	public void save(Tags tag) 
+	{
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+			currentSession.save(tag);
+		
+	}
+
 
 }
 

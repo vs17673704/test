@@ -1,5 +1,7 @@
-package com.luv2code.springboot.cruddemo.rest;
+package com.portal.question.cruddemo.rest;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.luv2code.springboot.cruddemo.entity.Employee;
-import com.luv2code.springboot.cruddemo.service.EmployeeService;
+import com.portal.question.cruddemo.entity.Employee;
+import com.portal.question.cruddemo.entity.Tags;
+import com.portal.question.cruddemo.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api")
@@ -59,6 +62,13 @@ public class EmployeeRestController {
 		employeeService.save(theEmployee);
 		
 		return theEmployee;
+	}
+	
+	@PostMapping("/trial")
+	public void addEmployee(@RequestBody Tags tag) {
+		System.out.println(tag.getTag());
+		employeeService.saveTag(tag);
+		
 	}
 	
 	// add mapping for PUT /employees - update existing employee
