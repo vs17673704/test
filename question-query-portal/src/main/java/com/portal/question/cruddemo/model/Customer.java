@@ -1,4 +1,4 @@
-package com.portal.question.cruddemo.entity;
+package com.portal.question.cruddemo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="employee")
-public class Employee {
+@Table(name="customer")
+public class Customer {
 
-	// define fields
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -27,21 +25,10 @@ public class Employee {
 	@Column(name="email")
 	private String email;
 	
-		
-	// define constructors
-	
-	public Employee() {
+	public Customer() {
 		
 	}
 
-	public Employee(String firstName, String lastName, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
-
-	// define getter/setter
-	
 	public int getId() {
 		return id;
 	}
@@ -74,20 +61,12 @@ public class Employee {
 		this.email = email;
 	}
 
-	// define tostring
-
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 		
 }
-
-
-
-
-
-
 
 
 

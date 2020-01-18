@@ -1,13 +1,15 @@
-package com.portal.question.model;
+package com.portal.question.cruddemo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "answer_comment")
 public class AnswerComments 
 {
+	@Id
 	@Column(name = "comment_id")
 	private String commentId;
 	@Column(name = "comment")

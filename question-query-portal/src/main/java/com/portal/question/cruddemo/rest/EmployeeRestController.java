@@ -1,10 +1,10 @@
 package com.portal.question.cruddemo.rest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,18 +14,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portal.question.cruddemo.entity.Employee;
-import com.portal.question.cruddemo.entity.Tags;
-import com.portal.question.cruddemo.service.EmployeeService;
+import com.portal.question.cruddemo.model.Company;
+import com.portal.question.cruddemo.model.Employee;
+import com.portal.question.cruddemo.model.Tags;
+import com.portal.question.cruddemo.service.QuestionService;
+
+import ch.qos.logback.core.net.SocketConnector.ExceptionHandler;
 
 @RestController
 @RequestMapping("/api")
 public class EmployeeRestController {
 
-	private EmployeeService employeeService;
+	private QuestionService employeeService;
 	
 	@Autowired
-	public EmployeeRestController(EmployeeService theEmployeeService) {
+	public EmployeeRestController(QuestionService theEmployeeService) {
 		employeeService = theEmployeeService;
 	}
 	
@@ -64,10 +67,30 @@ public class EmployeeRestController {
 		return theEmployee;
 	}
 	
-	@PostMapping("/trial")
-	public void addEmployee(@RequestBody Tags tag) {
-		System.out.println(tag.getTag());
-		employeeService.saveTag(tag);
+	@PostMapping("/company")
+	public void addEmployee(@RequestBody() Company company) {
+		System.out.println(company);
+		
+		if(company.getCompanyId()!=""&company.getCompanyName()!="")
+				employeeService.saveCompany(company);
+		else
+			throw new RuntimeException("All paramenters not entered");
+		
+	}
+	
+	@PostMapping("/tags")
+	public void addEmployee(@RequestBody Tags tags) {
+		System.out.println(tags);
+		
+		String st = tags.getTag();
+		
+		String[] elements = st.split(",");
+		
+		// step two : convert String array to list of String
+		List<String> listOfTags = Arrays.asList(elements);
+		System.out.println(listOfTags);
+		
+		employeeService.saveTag(listOfTags);
 		
 	}
 	
@@ -84,7 +107,7 @@ public class EmployeeRestController {
 	// add mapping for DELETE /employees/{employeeId} - delete employee
 	
 	@DeleteMapping("/employees/{employeeId}")
-	public String deleteEmployee(@PathVariable int employeeId) {
+	public String deleteEmployee(@PathVariable String employeeId) {
 		
 		Employee tempEmployee = employeeService.findById(employeeId);
 		

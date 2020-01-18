@@ -1,4 +1,4 @@
-package com.portal.question.cruddemo.entity;
+package com.portal.question.cruddemo.model;
 
 import java.util.List;
 

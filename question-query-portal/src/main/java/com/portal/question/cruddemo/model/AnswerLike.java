@@ -1,14 +1,15 @@
-package com.portal.question.model;
+package com.portal.question.cruddemo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "answer_like")
 public class AnswerLike 
 {
-	
+	@Id
 	@Column(name = "aid")
 	private String answerId;
 	@Column(name = "user_id")

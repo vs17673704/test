@@ -9,8 +9,9 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.portal.question.cruddemo.entity.Employee;
-import com.portal.question.cruddemo.entity.Tags;
+import com.portal.question.cruddemo.model.Company;
+import com.portal.question.cruddemo.model.Employee;
+import com.portal.question.cruddemo.model.Tags;
 
 @Repository
 public class EmployeeDAOHibernateImpl implements EmployeeDAO {
@@ -86,12 +87,31 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
 
 	@Override
-	public void save(Tags tag) 
+	public void save(List<String> tag) 
 	{
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-			currentSession.save(tag);
+		System.out.println("In EmployeeDAOHibernateImpl");
+		for(String s:tag)
+		{
+			System.out.println(s);
+		}
+		
+		for(String st:tag)
+		{
+			currentSession.saveOrUpdate(new Tags(st));
+		}
+		
+	}
+
+
+	@Override
+	public void saveCompany(Company companyDetails) 
+	{
+		Session currentSession = entityManager.unwrap(Session.class);
+		currentSession.saveOrUpdate(companyDetails);
+		
 		
 	}
 

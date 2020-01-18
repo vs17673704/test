@@ -1,34 +1,36 @@
-package com.portal.question.model;
+package com.portal.question.cruddemo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "subtopic")
-public class Subtopic 
+public class SubTopic 
 {
+	@Id
 	@Column(name = "subtopic_id")
 	private String subtopicId;
 	@Column(name = "subtopic")
 	private String subtopic;
-	@Column(name = "topic")
+	@Column(name = "topic_name")
 	private String topic;
 	
-	public Subtopic() 
+	public SubTopic() 
 	{
 		
 	}
 
-	public Subtopic(String subtopicId, String subtopic, String topic) {
+	public SubTopic(String subtopicId, String subtopic, String topicName) {
 		this.subtopicId = subtopicId;
 		this.subtopic = subtopic;
-		this.topic = topic;
+		this.topic = topicName;
 	}
 
 	@Override
 	public String toString() {
-		return "Subtopic [subtopicId=" + subtopicId + ", subtopic=" + subtopic + ", topic=" + topic + "]";
+		return "Subtopic [subtopicId=" + subtopicId + ", subtopic=" + subtopic + ", topic="  + "]";
 	}
 
 	public String getSubtopicId() {
@@ -54,5 +56,7 @@ public class Subtopic
 	public void setTopic(String topic) {
 		this.topic = topic;
 	}
+	
+	
 	
 }

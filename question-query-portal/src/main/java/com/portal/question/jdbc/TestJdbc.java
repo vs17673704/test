@@ -1,30 +1,52 @@
 package com.portal.question.jdbc;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.portal.question.cruddemo.model.SubTopic;
+import com.portal.question.cruddemo.model.Topics;
+import com.portal.question.dao.Subtopic;
 
 public class TestJdbc 
 {
 	public static void main(String args[])
 	{
 		
-		//String jdbcUrl = "jdbc:mysql://localhost:3306/hb-01-one-to-one-uni?useSSL=false";
-		//String user = "hbstudent";
-		//String pass = "hbstudent";
-		
-		String jdbcUrl = "jdbc:mysql://remotemysql.com:3306/7eVVspQxnT?useSSL=false";
-		String user = "7eVVspQxnT";
-		String pass = "4stBxeKgK8";
-		
-		try
-		{
-			System.out.println("COnnecting to database ; "+ jdbcUrl);
-			Connection myConn = DriverManager.getConnection(jdbcUrl, user, pass);
-			System.out.println("Connection Successful!!");
-		}
-		catch(Exception exc)
-		{
-			exc.printStackTrace();
-		}
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Topics.class)
+				.addAnnotatedClass(SubTopic.class)
+				.buildSessionFactory();
+
+				// create session
+				Session session = factory.getCurrentSession();
+				
+				try {			
+				
+					// start a transaction
+					session.beginTransaction();
+					
+					//session.saveOrUpdate(new Topics("T1"));
+					
+					//session.saveOrUpdate(new SubTopic("ST4", "SUB-TOPIC 4", "T2"));
+					
+					//Topics topics = session.get(Topics.class, "SPRING");
+					
+					session.delete(session.get(Topics.class, "T1"));
+					
+					
+					// commit transaction
+					session.getTransaction().commit();
+					
+					System.out.println("Done!");
+				}
+				finally {
+				
+					// add clean up code
+					session.close();
+					
+					factory.close();
+				}
 	}
 }

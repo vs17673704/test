@@ -1,9 +1,11 @@
-package com.portal.question.model;
+package com.portal.question.cruddemo.model;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 
 public class QuestionCompanyMapping 
 {
+	@Id
 	@Column(name = "qid")
 	private String questionId;
 	@Column(name = "company_id")

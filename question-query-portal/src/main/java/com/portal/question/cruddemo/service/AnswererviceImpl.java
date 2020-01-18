@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.question.cruddemo.dao.EmployeeDAO;
-import com.portal.question.cruddemo.entity.Employee;
-import com.portal.question.cruddemo.entity.Tags;
+import com.portal.question.cruddemo.model.Company;
+import com.portal.question.cruddemo.model.Employee;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class AnswererviceImpl implements AnswerService {
 
 	private EmployeeDAO employeeDAO;
 	
 	@Autowired
-	public EmployeeServiceImpl(EmployeeDAO theEmployeeDAO) {
+	public AnswererviceImpl(EmployeeDAO theEmployeeDAO) {
 		employeeDAO = theEmployeeDAO;
 	}
 	
@@ -46,8 +46,33 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	@Transactional
-	public void saveTag(Tags tag) {
+	public void saveTag(List<String> tag) {
 		employeeDAO.save(tag);
+	}
+
+	@Override
+	@Transactional
+	public void saveCompany(Company companyDetails) 
+	{
+		employeeDAO.saveCompany(companyDetails);
+	}
+
+	@Override
+	public Company findById1(String employeeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Employee findById(String employeeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteById(String employeeId) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

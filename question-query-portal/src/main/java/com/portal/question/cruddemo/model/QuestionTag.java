@@ -1,16 +1,15 @@
-package com.portal.question.model;
+package com.portal.question.cruddemo.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.TypeAlias;
 
 @Entity
 @Table(name = "question_tag")
 public class QuestionTag 
 {
-	
+	@Id
 	@Column(name = "qid")
 	private String questionId;
 	@Column(name = "tag")

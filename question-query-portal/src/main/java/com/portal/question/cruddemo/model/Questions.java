@@ -1,4 +1,4 @@
-package com.portal.question.model;
+package com.portal.question.cruddemo.model;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +24,7 @@ public class Questions {
 			@Column(name = "subtopic_id")
 			private String subtopicId;
 			@Column(name = "tag")
-			private List<String> tags;
+			private String tags;
 			@Column(name = "user_id")
 			private String userId;
 			
@@ -39,8 +39,7 @@ public class Questions {
 				// TODO Auto-generated constructor stub
 			}
 
-			public Questions(String qustionId, String question, Date date, String companyId, String subtopicId,
-					List<String> tags, String userId) {
+			public Questions(String qustionId, String question, Date date, String companyId, String subtopicId, String tags, String userId) {
 				this.qustionId = qustionId;
 				this.question = question;
 				this.date = date;
@@ -90,11 +89,11 @@ public class Questions {
 				this.subtopicId = subtopicId;
 			}
 
-			public List<String> getTags() {
+			public String getTags() {
 				return tags;
 			}
 
-			public void setTags(List<String> tags) {
+			public void setTags(String tags) {
 				this.tags = tags;
 			}
 

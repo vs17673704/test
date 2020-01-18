@@ -2,8 +2,9 @@ package com.portal.question.cruddemo.dao;
 
 import java.util.List;
 
-import com.portal.question.cruddemo.entity.Employee;
-import com.portal.question.cruddemo.entity.Tags;
+import com.portal.question.cruddemo.model.Company;
+import com.portal.question.cruddemo.model.Employee;
+import com.portal.question.cruddemo.model.Tags;
 
 public interface EmployeeDAO {
 	
@@ -15,6 +16,8 @@ public interface EmployeeDAO {
 	
 	public void deleteById(int theId);
 
-	public void save(Tags tag);
+	public void save(List<String> tag);
+	
+	public void saveCompany(Company cmopanyDetails);
 	
 }
