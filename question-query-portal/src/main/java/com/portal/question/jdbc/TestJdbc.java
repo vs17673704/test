@@ -4,9 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.portal.question.cruddemo.model.SubTopic;
-import com.portal.question.cruddemo.model.Topics;
-import com.portal.question.dao.Subtopic;
+import com.portal.question.model.SubTopic;
+import com.portal.question.model.Topics;
 
 public class TestJdbc 
 {
@@ -29,11 +28,11 @@ public class TestJdbc
 					
 					//session.saveOrUpdate(new Topics("T1"));
 					
-					//session.saveOrUpdate(new SubTopic("ST4", "SUB-TOPIC 4", "T2"));
+					session.saveOrUpdate(new SubTopic("varun", "sharma", "T1"));
 					
 					//Topics topics = session.get(Topics.class, "SPRING");
 					
-					session.delete(session.get(Topics.class, "T1"));
+			//		session.delete(session.get(Topics.class, "T1"));
 					
 					
 					// commit transaction
