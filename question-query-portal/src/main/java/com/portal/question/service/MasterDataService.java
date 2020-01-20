@@ -48,10 +48,10 @@ public interface MasterDataService {
 	public SubTopic findSubTopicById(String subTopicId);
 
 	/////////////////////////////////////////////////////////////////////         USER         \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public Users saveUser(Users user);
+	public Users saveUser(Users userdetails);
 
-	String deleteUserById(String userId);
+	public String deleteUserById(String userId);
 
-	Users findUserById(String userId);
+	public Users findUserById(String userId);
 	
 }

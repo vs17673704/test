@@ -42,8 +42,8 @@ public class CompanyCrudDAOHibernateImpl implements CompanyCrudDAO
 	public Company findById(String companyId) 
 	{
 		Session currentSession 	=	entityManager.unwrap(Session.class);	
-		Company theEmployee 	=	currentSession.get(Company.class, companyId);
-		return theEmployee;
+		Company theCompany 	=	currentSession.get(Company.class, companyId);
+		return theCompany;
 	}
 
 

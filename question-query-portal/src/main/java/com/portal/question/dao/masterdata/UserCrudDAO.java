@@ -5,9 +5,9 @@ import com.portal.question.model.Users;
 
 public interface UserCrudDAO {
 	
-	public Users findById(String companyId);
+	public Users findById(String userId);
 	
-	public Users save(Users user);
+	public Users save(Users userdetails);
 	
 	public String deleteById(String userId);
 	

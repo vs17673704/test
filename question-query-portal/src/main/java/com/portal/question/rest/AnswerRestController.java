@@ -1,126 +1,49 @@
 package com.portal.question.rest;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portal.question.model.Company;
-import com.portal.question.model.Employee;
-import com.portal.question.model.Tags;
-import com.portal.question.service.QuestionService;
-
-import ch.qos.logback.core.net.SocketConnector.ExceptionHandler;
+import com.portal.question.model.AnswerLike;
+import com.portal.question.model.Answers;
+import com.portal.question.model.QuestionLike;
+import com.portal.question.model.Users;
+import com.portal.question.service.AnswerService;
+import com.portal.question.service.MasterDataService;
 
 @RestController
 @RequestMapping("/answer")
 public class AnswerRestController {
 
-	private QuestionService employeeService;
+	private AnswerService answerService;
+	private MasterDataService masterDataService;
 	
 	@Autowired
-	public AnswerRestController(QuestionService theEmployeeService) {
-		employeeService = theEmployeeService;
+	public AnswerRestController(AnswerService theAnswerService) {
+		answerService = theAnswerService;
 	}
 	
-	// expose "/employees" and return list of employees
-	@GetMapping("/main")
-	public List<Employee> findAll() {
-		return employeeService.findAll();
-	}
-
-	// add mapping for GET /employees/{employeeId}
-	
-	@GetMapping("/like")
-	public Employee getEmployee(@PathVariable int employeeId) {
+	@PostMapping("/like")
+	public AnswerLike likeQuestion(@RequestBody AnswerLike answerLike) 
+	{
+		String exception = "";
+		Users theUser = masterDataService.findUserById(answerLike.getUserId());
+		Answers theAnswer = answerService.findAnswerById(answerLike.getAnswerId());
 		
-		Employee theEmployee = employeeService.findById(employeeId);
+		if(answerLike.getAnswerId()==""||answerLike.getUserId()=="")
+			exception="Both IDs are required.";
 		
-		if (theEmployee == null) {
-			throw new RuntimeException("Employee id not found - " + employeeId);
-		}
+		if((theUser==null||theAnswer==null)&&(answerLike.getUserId()!=""||answerLike.getAnswerId()!=""))
+			exception+="Please check provided IDs for their availability in database.";
 		
-		return theEmployee;
-	}
-	
-	// add mapping for POST /employees - add new employee
-	
-	@PostMapping("/employees")
-	public Employee addEmployee(@RequestBody Employee theEmployee) {
+		if(exception!="")
+			throw new RuntimeException(exception);
 		
-		// also just in case they pass an id in JSON ... set id to 0
-		// this is to force a save of new item ... instead of update
-		
-		theEmployee.setId(0);
-		
-		employeeService.save(theEmployee);
-		
-		return theEmployee;
+		return answerService.saveAnswerLiked(answerLike);
 	}
 	
-	@PostMapping("/company")
-	public void addEmployee(@RequestBody() Company company) {
-		System.out.println(company);
-		
-		if(company.getCompanyId()!=""&company.getCompanyName()!="")
-				employeeService.saveCompany(company);
-		else
-			throw new RuntimeException("All paramenters not entered");
-		
-	}
-	
-	@PostMapping("/tags")
-	public void addEmployee(@RequestBody Tags tags) {
-		System.out.println(tags);
-		
-		String st = tags.getTag();
-		
-		String[] elements = st.split(",");
-		
-		// step two : convert String array to list of String
-		List<String> listOfTags = Arrays.asList(elements);
-		System.out.println(listOfTags);
-		
-		employeeService.saveTag(listOfTags);
-		
-	}
-	
-	// add mapping for PUT /employees - update existing employee
-	
-	@PutMapping("/employees")
-	public Employee updateEmployee(@RequestBody Employee theEmployee) {
-		
-		employeeService.save(theEmployee);
-		
-		return theEmployee;
-	}
-	
-	// add mapping for DELETE /employees/{employeeId} - delete employee
-	
-	@DeleteMapping("/employees/{employeeId}")
-	public String deleteEmployee(@PathVariable String employeeId) {
-		
-		Employee tempEmployee = employeeService.findById(employeeId);
-		
-		// throw exception if null
-		
-		if (tempEmployee == null) {
-			throw new RuntimeException("Employee id not found - " + employeeId);
-		}
-		
-		employeeService.deleteById(employeeId);
-		
-		return "Deleted employee id - " + employeeId;
-	}
 	
 }
 

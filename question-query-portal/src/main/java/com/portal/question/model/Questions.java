@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Questions {
 		
 			@Id
-			@Column(name = "qid")
+			@Column(name = "qid" )
 			private String qustionId;
 			@Column(name = "question")
 			private String question;
@@ -23,15 +23,13 @@ public class Questions {
 			private String companyId;
 			@Column(name = "subtopic_id")
 			private String subtopicId;
-			@Column(name = "tag")
-			private String tags;
 			@Column(name = "user_id")
 			private String userId;
 			
 			@Override
 			public String toString() {
 				return "Questions [qustionId=" + qustionId + ", question=" + question + ", date=" + date
-						+ ", companyId=" + companyId + ", subtopicId=" + subtopicId + ", tags=" + tags + ", userId="
+						+ ", companyId=" + companyId + ", subtopicId=" + subtopicId + ", userId="
 						+ userId + "]";
 			}
 			
@@ -39,13 +37,12 @@ public class Questions {
 				// TODO Auto-generated constructor stub
 			}
 
-			public Questions(String qustionId, String question, Date date, String companyId, String subtopicId, String tags, String userId) {
+			public Questions(String qustionId, String question, Date date, String userId, String subtopicId, String companyId) {
 				this.qustionId = qustionId;
 				this.question = question;
 				this.date = date;
 				this.companyId = companyId;
 				this.subtopicId = subtopicId;
-				this.tags = tags;
 				this.userId = userId;
 			}
 
@@ -89,13 +86,6 @@ public class Questions {
 				this.subtopicId = subtopicId;
 			}
 
-			public String getTags() {
-				return tags;
-			}
-
-			public void setTags(String tags) {
-				this.tags = tags;
-			}
 
 			public String getUserId() {
 				return userId;

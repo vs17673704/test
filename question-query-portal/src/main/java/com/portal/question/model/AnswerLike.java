@@ -37,5 +37,15 @@ public class AnswerLike
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+	public String getAnswerId() {
+		return answerId;
+	}
+
+	public void setAnswerId(String answerId) {
+		this.answerId = answerId;
+	}
+
+	
 	
 }

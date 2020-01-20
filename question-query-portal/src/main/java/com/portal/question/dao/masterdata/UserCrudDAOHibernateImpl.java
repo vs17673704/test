@@ -35,11 +35,12 @@ public class UserCrudDAOHibernateImpl implements UserCrudDAO
 	}
 
 	@Override
-	public Users save(Users user) 
+	public Users save(Users userdetails) 
 	{
+		System.out.println("INSIDE SAVE USER");
 		Session currentSession = entityManager.unwrap(Session.class);	
-		currentSession.saveOrUpdate(user);
-		return user;
+		currentSession.saveOrUpdate(userdetails);
+		return userdetails;
 	}
 
 	@Override

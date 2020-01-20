@@ -32,12 +32,14 @@ public class MasterDataServiceImpl implements MasterDataService
 	
 	
 	@Autowired
-	public MasterDataServiceImpl(TagsCrudDAO temptagsCrudDAO, CompanyCrudDAO tempcompanyCrudDAO,	SubTopicCrudDAO tempsubTopicCrudDao, TopicsCrudDAO temptopicCrudDAO) 
+	public MasterDataServiceImpl(TagsCrudDAO temptagsCrudDAO, CompanyCrudDAO tempcompanyCrudDAO, SubTopicCrudDAO tempsubTopicCrudDao, 
+								 TopicsCrudDAO temptopicCrudDAO, UserCrudDAO tempuserCrudDAO) 
 	{
 		tagsCrudDAO = temptagsCrudDAO;
 		companyCrudDAO = tempcompanyCrudDAO;
 		topicCrudDAO = temptopicCrudDAO;
 		subTopicCrudDAO = tempsubTopicCrudDao;
+		userCrudDAO = tempuserCrudDAO;
 	}
 	
 	
@@ -69,7 +71,7 @@ public class MasterDataServiceImpl implements MasterDataService
 
 	@Override	@Transactional	public String deleteCompanyById(String companyId) 	{	return companyCrudDAO.deleteById(companyId);}
 	
-	/*------------------------------------------------------------------------------SUBTOPICS--------------------------------------------------------------------------*/
+	/*-------------------------------------------------------------------------SUBTOPICS-------------------------------------------------------------------------------*/
 	@Override	@Transactional	public List<SubTopic> findAllSubTopics()			{	return subTopicCrudDAO.findAll();			}
 
 	@Override	@Transactional	public SubTopic saveSubTopic(SubTopic subTopic)		{	return subTopicCrudDAO.save(subTopic);		}
@@ -78,8 +80,9 @@ public class MasterDataServiceImpl implements MasterDataService
 
 	@Override	@Transactional	public SubTopic findSubTopicById(String subTopicId)	{	return subTopicCrudDAO.findById(subTopicId);}
 
-	/*------------------------------------------------------------------------------SUBTOPICS--------------------------------------------------------------------------*/
-	@Override	@Transactional	public Users saveUser(Users user)					{	return userCrudDAO.save(user);				}
+	/*---------------------------------------------------------------------------USER--------------------------------------------------------------------------------*/
+	@Override	@Transactional	public Users saveUser(Users userdetails)			{System.out.println("INSIDE SAVE USER SERVICE");	
+		return userCrudDAO.save(userdetails);		}
 
 	@Override	@Transactional	public String deleteUserById(String userId)			{	return userCrudDAO.deleteById(userId);		}
 

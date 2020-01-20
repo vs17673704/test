@@ -1,79 +1,51 @@
 package com.portal.question.service;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.question.dao.EmployeeDAO;
-import com.portal.question.model.Company;
-import com.portal.question.model.Employee;
+import com.portal.question.dao.QuestionDAO;
+import com.portal.question.model.QuestionLike;
+import com.portal.question.model.Questions;
+import com.portal.question.rest.QuestionBuffer;
 
 @Service
-public class QuestionServiceImpl implements QuestionService {
+public class QuestionServiceImpl implements QuestionService 
+{
 
-	private EmployeeDAO employeeDAO;
+	private QuestionDAO questionDAO;
+	;
 	
 	@Autowired
-	public QuestionServiceImpl(EmployeeDAO theEmployeeDAO) {
-		employeeDAO = theEmployeeDAO;
-	}
-	
-	@Override
-	@Transactional
-	public List<Employee> findAll() {
-		return employeeDAO.findAll();
-	}
-
-	@Override
-	@Transactional
-	public Employee findById(int theId) {
-		return employeeDAO.findById(theId);
-	}
-
-	@Override
-	@Transactional
-	public void save(Employee theEmployee) {
-		employeeDAO.save(theEmployee);
-	}
-
-	@Override
-	@Transactional
-	public void deleteById(int theId) {
-		employeeDAO.deleteById(theId);
-	}
-
-	@Override
-	@Transactional
-	public void saveTag(List<String> tag) {
-		employeeDAO.save(tag);
-	}
-
-	@Override
-	@Transactional
-	public void saveCompany(Company companyDetails) 
-	{
-		employeeDAO.saveCompany(companyDetails);
-	}
-
-	@Override
-	public Company findById1(String employeeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Employee findById(String employeeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteById(String employeeId) {
-		// TODO Auto-generated method stub
+	public QuestionServiceImpl(QuestionDAO theQuestionDAO) {
+		questionDAO = theQuestionDAO;
 		
 	}
+
+	@Override 
+	@Transactional	
+	public Questions findQuestionById(String questionId)	
+	{	
+		return questionDAO.findQuestionById(questionId);	
+	}
+
+	@Override 
+	@Transactional	
+	public QuestionLike saveQuestionLiked(QuestionLike questionLike) 		
+	{	
+		return questionDAO.likeQuestion(questionLike);	
+	}
+
+	@Override
+	@Transactional
+	public String saveQuestion(QuestionBuffer questionBuffer) 
+	{
+		return questionDAO.save(questionBuffer);
+	}
+
 }
 
 

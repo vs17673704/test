@@ -31,21 +31,21 @@ public class UserCRUDRestController
 	
 	
 	@PostMapping("/user")
-	public Users addUser(@RequestBody Users user) 
+	public Users addUserDetails(@RequestBody Users userdetails) 
 	{
-		if(user.getUserId()==""||user.getUserName()=="")
+		if(userdetails.getUserId()==""||userdetails.getUserName()=="")
 			throw new RuntimeException("All paramenters not entered");	
 		else
-			return masterDataService.saveUser(user);
+			return masterDataService.saveUser(userdetails);
 				
 	}
 	
 
 	@PutMapping("/user")
-	public Users updateUser(@RequestBody Users user) 
+	public Users updateUser(@RequestBody Users userdetails) 
 	{
-		masterDataService.saveUser(user);	
-		return user;
+		masterDataService.saveUser(userdetails);	
+		return userdetails;
 	}
 	
 	
