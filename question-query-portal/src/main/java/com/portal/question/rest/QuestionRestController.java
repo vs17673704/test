@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.util.ObjectBuffer;
+import com.portal.question.dao.masterdata.CompanyCrudDAO;
+import com.portal.question.dao.masterdata.SubTopicCrudDAO;
+import com.portal.question.dao.masterdata.UserCrudDAO;
 import com.portal.question.model.QuestionLike;
 import com.portal.question.model.Questions;
 import com.portal.question.model.Users;
@@ -58,19 +61,40 @@ public class QuestionRestController {
 	@PostMapping("/main")
 	public String getQuestionDetails( @RequestBody QuestionBuffer questionBuffer)
 	{
+		String missing = "";
 		if((questionBuffer.getSubTopicId()==null||questionBuffer.getSubTopicId()=="")
 			||(questionBuffer.getUserId()==null||questionBuffer.getUserId()=="")
 			||(questionBuffer.getQuestion()==null||questionBuffer.getQuestion()==""))
 		{
 			throw new RuntimeException("Sub-topic ID, use ID or Question required!");
 		}
+			//System.out.println(companyCrudDAO.findById(questionBuffer.getCompanyId()));
+			if(masterDataService.findCompanyById(questionBuffer.getCompanyId())==null)
+			{
+				missing+="Company";
+			}
+			if(masterDataService.findSubTopicById(questionBuffer.getSubTopicId())==null)
+			{
+				if(missing!="")	missing+=", ";
+				missing+="Sub-topic";
+			}
+			
+			if(masterDataService.findUserById(questionBuffer.getUserId())==null)
+			{
+				if(missing!="")	missing+=", ";
+				missing+=" User ";
+			}
+			if(missing!="")
+			{
+				throw new RuntimeException(missing+" does not exist!");
+			}
 		
-		if(questionBuffer.getQuestion().length()<50 && questionBuffer.getQuestion().length()>500)
+			if(questionBuffer.getQuestion().length()<50 && questionBuffer.getQuestion().length()>500)
 		{
 			throw new RuntimeException("Characters in question must be under the range of 50 to 500 characters!");
 		}
+
 		return questionService.saveQuestion(questionBuffer);
-		
 	}
 	
 	

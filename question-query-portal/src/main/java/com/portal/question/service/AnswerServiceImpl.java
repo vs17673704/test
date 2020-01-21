@@ -9,12 +9,12 @@ import com.portal.question.model.AnswerLike;
 import com.portal.question.model.Answers;
 
 @Service
-public class AnswererviceImpl implements AnswerService {
+public class AnswerServiceImpl implements AnswerService {
 
 	private AnswerDAO answerDAO;
 	
 	@Autowired
-	public AnswererviceImpl(AnswerDAO theAnswerDAO) {
+	public AnswerServiceImpl(AnswerDAO theAnswerDAO) {
 		answerDAO = theAnswerDAO;
 	}
 	
@@ -30,6 +30,13 @@ public class AnswererviceImpl implements AnswerService {
 	public AnswerLike saveAnswerLiked(AnswerLike questionLike) 		
 	{	
 		return answerDAO.likeAnswer(questionLike);	
+	}
+	
+	@Override
+	@Transactional
+	public String saveAnswer(Answers answer) 
+	{
+		return answerDAO.save(answer);
 	}
 	
 }
