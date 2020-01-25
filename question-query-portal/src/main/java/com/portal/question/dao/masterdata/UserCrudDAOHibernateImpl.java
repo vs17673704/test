@@ -1,7 +1,5 @@
 package com.portal.question.dao.masterdata;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
@@ -9,10 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.portal.question.dao.EmployeeDAO;
-import com.portal.question.model.Company;
-import com.portal.question.model.Employee;
-import com.portal.question.model.Tags;
 import com.portal.question.model.Users;
 
 @Repository
@@ -47,6 +41,7 @@ public class UserCrudDAOHibernateImpl implements UserCrudDAO
 	public String deleteById(String userId) 
 	{
 		Session currentSession = entityManager.unwrap(Session.class);		
+		@SuppressWarnings("rawtypes")
 		Query theQuery = 	currentSession.createQuery("delete from User where id=:userId");
 		theQuery.setParameter("userId", userId);
 		theQuery.executeUpdate();

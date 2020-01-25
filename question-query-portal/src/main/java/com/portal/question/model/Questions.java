@@ -1,8 +1,6 @@
 package com.portal.question.model;
 
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,8 +17,6 @@ public class Questions {
 			private String question;
 			@Column(name = "date")
 			private Date date;
-			@Column(name = "company_id")
-			private String companyId;
 			@Column(name = "subtopic_id")
 			private String subtopicId;
 			@Column(name = "user_id")
@@ -29,7 +25,7 @@ public class Questions {
 			@Override
 			public String toString() {
 				return "Questions [qustionId=" + qustionId + ", question=" + question + ", date=" + date
-						+ ", companyId=" + companyId + ", subtopicId=" + subtopicId + ", userId="
+						 + ", subtopicId=" + subtopicId + ", userId="
 						+ userId + "]";
 			}
 			
@@ -37,13 +33,12 @@ public class Questions {
 				// TODO Auto-generated constructor stub
 			}
 
-			public Questions(String qustionId, String question, Date date, String userId, String subtopicId, String companyId) {
+			public Questions(String qustionId, String question, Date date, String userId, String subtopicId) {
 				this.qustionId = qustionId;
 				this.question = question;
-				this.date = date;
-				this.companyId = companyId;
 				this.subtopicId = subtopicId;
 				this.userId = userId;
+				this.date = date;
 			}
 
 			public String getQustionId() {
@@ -69,15 +64,7 @@ public class Questions {
 			public void setDate(Date date) {
 				this.date = date;
 			}
-
-			public String getCompanyId() {
-				return companyId;
-			}
-
-			public void setCompanyId(String companyId) {
-				this.companyId = companyId;
-			}
-
+			
 			public String getSubtopicId() {
 				return subtopicId;
 			}

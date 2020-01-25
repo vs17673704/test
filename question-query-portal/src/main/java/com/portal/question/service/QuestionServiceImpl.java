@@ -1,7 +1,7 @@
 package com.portal.question.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +44,14 @@ public class QuestionServiceImpl implements QuestionService
 	public String saveQuestion(QuestionBuffer questionBuffer) 
 	{
 		return questionDAO.save(questionBuffer);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	@Transactional
+	public Map getSearchResults(List<String> company, List<String> subtopic, List<String> tag, Integer like, String date) 
+	{
+		return questionDAO.getRestults(company, subtopic, tag, like, date);
 	}
 
 }

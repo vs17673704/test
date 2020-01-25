@@ -1,6 +1,5 @@
 package com.portal.question.dao.masterdata;
 
-import com.portal.question.model.Company;
 import com.portal.question.model.Users;
 
 public interface UserCrudDAO {

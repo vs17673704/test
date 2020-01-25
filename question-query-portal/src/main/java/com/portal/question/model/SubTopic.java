@@ -14,7 +14,7 @@ public class SubTopic
 	private String subtopicId;
 	@Column(name = "subtopic")
 	private String subtopic;
-	@Column(name = "topic_name")
+	@Column(name = "topic")
 	private String topic_name;
 	
 	public SubTopic() 

@@ -9,10 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.portal.question.dao.EmployeeDAO;
 import com.portal.question.model.Company;
-import com.portal.question.model.Employee;
-import com.portal.question.model.Tags;
 
 @Repository
 public class CompanyCrudDAOHibernateImpl implements CompanyCrudDAO
@@ -60,6 +57,7 @@ public class CompanyCrudDAOHibernateImpl implements CompanyCrudDAO
 	public String deleteById(String companyId) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);		
+		@SuppressWarnings("rawtypes")
 		Query theQuery = 	currentSession.createQuery("delete from Company where id=:companyId");
 		theQuery.setParameter("companyId", companyId);
 		theQuery.executeUpdate();

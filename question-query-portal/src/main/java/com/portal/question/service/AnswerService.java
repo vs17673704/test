@@ -1,10 +1,10 @@
 package com.portal.question.service;
 
-import java.util.List;
+import java.util.Map;
 
+import com.portal.question.model.AnswerComments;
 import com.portal.question.model.AnswerLike;
 import com.portal.question.model.Answers;
-import com.portal.question.model.Company;
 
 public interface AnswerService {
 
@@ -12,6 +12,10 @@ public interface AnswerService {
 
 	public AnswerLike saveAnswerLiked(AnswerLike questionLike);
 
-	public String saveAnswer(Answers answer);	
+	public String saveAnswer(Answers answer);
+
+	public Map<?, ?> getSearchResult(String questionId);
+
+	public String saveComment(AnswerComments comment);	
 	
 }

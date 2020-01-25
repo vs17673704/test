@@ -1,8 +1,7 @@
 package com.portal.question.service;
 
 import java.util.List;
-
-import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
+import java.util.Map;
 
 import com.portal.question.model.QuestionLike;
 import com.portal.question.model.Questions;
@@ -15,6 +14,8 @@ public interface QuestionService {
 	public QuestionLike saveQuestionLiked(QuestionLike questionLike);
 
 	public String saveQuestion(QuestionBuffer questionBuffer);
+
+	public Map getSearchResults(List<String> company, List<String> subtopic, List<String> tag, Integer like, String date);
 	
 	
 }

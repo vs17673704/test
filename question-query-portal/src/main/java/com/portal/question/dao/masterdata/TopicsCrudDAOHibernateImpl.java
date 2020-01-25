@@ -10,10 +10,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.portal.question.dao.EmployeeDAO;
-import com.portal.question.model.Company;
-import com.portal.question.model.Employee;
-import com.portal.question.model.Tags;
 import com.portal.question.model.Topics;
 
 @Repository

@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.question.dao.EmployeeDAO;
 import com.portal.question.dao.masterdata.CompanyCrudDAO;
 import com.portal.question.dao.masterdata.SubTopicCrudDAO;
 import com.portal.question.dao.masterdata.TagsCrudDAO;
 import com.portal.question.dao.masterdata.TopicsCrudDAO;
 import com.portal.question.dao.masterdata.UserCrudDAO;
 import com.portal.question.model.Company;
-import com.portal.question.model.Employee;
 import com.portal.question.model.SubTopic;
 import com.portal.question.model.Tags;
 import com.portal.question.model.Topics;

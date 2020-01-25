@@ -1,10 +1,13 @@
 package com.portal.question.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.question.dao.AnswerDAO;
+import com.portal.question.model.AnswerComments;
 import com.portal.question.model.AnswerLike;
 import com.portal.question.model.Answers;
 
@@ -37,6 +40,20 @@ public class AnswerServiceImpl implements AnswerService {
 	public String saveAnswer(Answers answer) 
 	{
 		return answerDAO.save(answer);
+	}
+
+	@Override
+	@Transactional
+	public Map<?,?> getSearchResult(String questionId) 
+	{
+		return answerDAO.searchResult(questionId);
+	}
+
+	@Override
+	@Transactional
+	public String saveComment(AnswerComments comment) 
+	{
+		return answerDAO.saveComment(comment);
 	}
 	
 }

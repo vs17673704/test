@@ -1,5 +1,7 @@
 package com.portal.question.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,25 +20,24 @@ public class AnswerComments
 	private String userId;
 	@Column(name = "aid")
 	private String answerId;
+	@Column(name = "date")
+	private Date date;
 	
 	public AnswerComments() 
 	{
 		
 	}
 
-	public AnswerComments(String commentId, String comment, String userId, String answerId) {
+	public AnswerComments(String commentId, String comment, String userId, String answerId, Date date) {
 		this.commentId = commentId;
 		this.comment = comment;
 		this.userId = userId;
 		this.answerId = answerId;
+		this.date = date;
 	}
 
-	@Override
-	public String toString() {
-		return "AnswerComments [commentId=" + commentId + ", comment=" + comment + ", userId=" + userId + ", answerId="
-				+ answerId + "]";
-	}
 
+	
 	public String getCommentId() {
 		return commentId;
 	}
@@ -67,6 +68,20 @@ public class AnswerComments
 
 	public void setAnswerId(String answerId) {
 		this.answerId = answerId;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "AnswerComments [commentId=" + commentId + ", comment=" + comment + ", userId=" + userId + ", answerId="
+				+ answerId + ", date=" + date + "]";
 	}
 	
 	
