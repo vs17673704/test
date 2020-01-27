@@ -49,18 +49,6 @@ public class UserCRUDRestController
 	}
 	
 	
-	@DeleteMapping("/user/{userId}")
-	public String deleteUser(@PathVariable String userId) 
-	{
-		Users user = masterDataService.findUserById(userId);
-		if (user == null) 
-		{
-			throw new RuntimeException("User id not found - " + userId);
-		}	
-		
-		return masterDataService.deleteUserById(userId);
-	}
-	
 }
 
 

@@ -58,9 +58,14 @@ public class CompanyCrudDAOHibernateImpl implements CompanyCrudDAO
 		
 		Session currentSession = entityManager.unwrap(Session.class);		
 		@SuppressWarnings("rawtypes")
-		Query theQuery = 	currentSession.createQuery("delete from Company where id=:companyId");
+		Query theQuery = 	currentSession.createQuery("DELETE FROM Company WHERE companyId=:companyId");
 		theQuery.setParameter("companyId", companyId);
 		theQuery.executeUpdate();
+		
+		theQuery = 	currentSession.createQuery("DELETE FROM QuestionCompanyMapping WHERE companyId=:companyId");
+		theQuery.setParameter("companyId", companyId);
+		theQuery.executeUpdate();
+		
 		return "Deleted company id - " + companyId;
 		
 	}

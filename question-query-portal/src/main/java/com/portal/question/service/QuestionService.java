@@ -11,7 +11,7 @@ public interface QuestionService {
 
 	public Questions findQuestionById(String questionId);
 
-	public QuestionLike saveQuestionLiked(QuestionLike questionLike);
+	public void saveQuestionLiked(QuestionLike questionLike);
 
 	public String saveQuestion(QuestionBuffer questionBuffer);
 

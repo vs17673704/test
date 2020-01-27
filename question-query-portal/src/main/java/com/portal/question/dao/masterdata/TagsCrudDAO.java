@@ -10,6 +10,6 @@ public interface TagsCrudDAO {
 	
 	public String delete(String tag);
 
-	public List<String> save(Tags tags);
+	public List<Tags> save(List<String> tags);
 	
 }

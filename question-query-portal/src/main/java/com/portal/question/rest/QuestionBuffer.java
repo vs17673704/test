@@ -15,8 +15,6 @@ public class QuestionBuffer
 		
 	}
 
-	
-
 	public QuestionBuffer(List<String> taglist, String question, String companyId, String subTopicId, String userId) {
 		this.taglist = taglist;
 		this.question = question;

@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.question.model.Company;
-import com.portal.question.model.Employee;
 import com.portal.question.service.MasterDataService;
-import com.portal.question.service.QuestionService;
 
 @RestController
 @RequestMapping("/masterdata")
@@ -40,7 +38,7 @@ public class CompanyCRUDRestController
 	
 	
 	@PostMapping("/companies")
-	public Company addEmployee(@RequestBody Company company) 
+	public Company addCompany(@RequestBody Company company) 
 	{
 		if(company.getCompanyId()==""||company.getCompanyName()=="")
 			throw new RuntimeException("All paramenters not entered");	
@@ -51,14 +49,14 @@ public class CompanyCRUDRestController
 	
 
 	@PutMapping("/companies")
-	public Company updateEmployee(@RequestBody Company company) 
+	public Company updateCompany(@RequestBody Company company) 
 	{
 		masterDataService.saveCompany(company);	
 		return company;
 	}
 	
 	
-	@DeleteMapping("/companiess/{companyId}")
+	@DeleteMapping("/companies/{companyId}")
 	public String deleteCompany(@PathVariable String companyId) 
 	{
 		Company company = masterDataService.findCompanyById(companyId);

@@ -1,6 +1,5 @@
 package com.portal.question.dao;
 
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +14,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Repository;
 import com.portal.question.model.AnswerComments;
 import com.portal.question.model.AnswerLike;
 import com.portal.question.model.Answers;
+import com.portal.question.rest.CommentBuffer;
 
 @Repository
 public class AnswerDAOHibernateImpl implements AnswerDAO {
@@ -44,11 +45,10 @@ public class AnswerDAOHibernateImpl implements AnswerDAO {
 	}
 
 	@Override
-	public AnswerLike likeAnswer(AnswerLike answerLike) 
+	public void likeAnswer(AnswerLike answerLike) 
 	{
 		Session currentSession 	=	entityManager.unwrap(Session.class);
 		currentSession.saveOrUpdate(answerLike);
-		return answerLike;
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class AnswerDAOHibernateImpl implements AnswerDAO {
 		Session currentSession 	=	entityManager.unwrap(Session.class);
 		String AID = "AN" + (new SimpleDateFormat("ddmm")).format(new Date()) + answer.getUserId();  
 		currentSession.saveOrUpdate(new Answers(AID, answer.getAnswer(), answer.getUserId(), answer.getQuestionId()));
-		return AID;
+		return "Answer ID for submitted answer is: " + AID;
 	}
 	
 	
@@ -69,32 +69,36 @@ public class AnswerDAOHibernateImpl implements AnswerDAO {
 		String CMID = "CM" +(new SimpleDateFormat("ddmm")).format(new Date()) + comment.getUserId();
 		
 		currentSession.saveOrUpdate(new AnswerComments(CMID, comment.getComment(), comment.getUserId(), comment.getAnswerId(), date));
-		return CMID;
+		return "Comment ID for submitted comment is: " + CMID;
 	}
 	
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	public Map<String, HashMap<String, List<Object>>> searchResult(String questionId) 
 	{
 		@SuppressWarnings("rawtypes")
 		Map question_map	 					= new LinkedHashMap();
-		Map<String, List<Object>> answer_map	= new HashMap<String, List<Object>>();
+		Map answer_map							= new HashMap();
 		Map<String, Object> answer_user 		= new HashMap<String, Object>();
-		Map<String, Integer> answer_like 		= new HashMap<String, Integer>();
+		Map<String, Long> answer_like 			= new HashMap<>();
 		
 		Set<Object> company_list = new HashSet<Object>();
 		Set<Object> tag_list 	 = new HashSet<Object>();
 		Set<Object> topic_list 	 = new HashSet<Object>();
+		Set<Object> ans_list 	 = new HashSet<Object>();
 		
-		List<Object> ans_list   = new ArrayList<Object>();
-		List<Comments> comments = new ArrayList<>();
-		Integer ans_like        = null;
+		List<CommentBuffer> comments = new ArrayList<>();
+		long ans_like;
+		
+		String commentSelect = "", commentFrom = "", commentWhere = "", answer = null;
 		
 		Session currentSession 	=	entityManager.unwrap(Session.class);
 		
-		Query<Object[]> query = currentSession.createNativeQuery("SELECT DISTINCT q.question, c.company_name, qt.tag, qs.topic FROM questions q, question_tag qt, " + 
-					 " question_company_mapping qc, company c, subtopic qs where q.qid=\"" + questionId + "\"");
+		Query<Object[]> query = currentSession.createQuery("SELECT DISTINCT q.question, c.companyName, qt.tag, st.topicName FROM Questions q, QuestionTag qt, " + 
+				 										   " QuestionCompanyMapping qc, Company c, SubTopic st WHERE q.questionId = :qid AND qc.questionId = :qid "
+				 										   + "AND qt.questionId = :qid AND qc.companyId = c.companyId AND q.subtopicId = st.subtopicId")
+				  							  .setParameter("qid", questionId);
 
 		List<Object[]> qlist = query.getResultList();
 		String question = (String) (Arrays.asList(qlist.get(0))).get(0);
@@ -108,40 +112,53 @@ public class AnswerDAOHibernateImpl implements AnswerDAO {
 			tag_list.add(arr[3]);
 		}
 		
+		query   =   currentSession.createQuery("SELECT DISTINCT a.answer,a.userId, a.answerId, ac.comment, u.userName, ac.date FROM "+
+	            " Answers a, AnswerComments ac, Users u WHERE a.questionId= :qid AND a.answerId=ac.answerId AND ac.userId=u.userId ORDER BY a.answerId" )
+				.setParameter("qid", questionId);
 		
-		query   =   currentSession.createNativeQuery("SELECT a.answer,a.user_id, ac.comment, u.user_name, ac.date, a.aid FROM "+
-						            " answers a, answer_comment ac, user u WHERE a.aid=ac.aid AND ac.user_id=u.user_id AND a.qid=\""+questionId+"\"");
-	
 		List<Object[]> list = query.getResultList();
-		String tempans = (String) (Arrays.asList(list.get(0))).get(0);
+		String tempans = (String) (Arrays.asList(list.get(0))).get(2);
+		String tempUser = null;
 		for(Object[] arr : list)
 		{
-			if(!tempans.equals(arr[0]))
+			tempUser = (String)arr[1];
+			if(!tempans.equals(arr[2]))
 			{
+				ans_like =	(long) currentSession.createQuery("SELECT COUNT(al.answerId) FROM AnswerLike al WHERE al.answerId = :aid")
+												 .setParameter("aid", arr[2])
+												 .uniqueResult();
 				
-				ans_like = ((BigInteger)currentSession.createNativeQuery("SELECT count(al.aid) FROM answer_like al where al.aid=\""+arr[5]+"\"")
-							.uniqueResult()).intValue();
 				answer_like.put("Like", ans_like);
-				answer_user.put("User ID", arr[1]);
+				answer_user.put("User ID", tempUser);
 				ans_list.add(answer_like);
 				ans_list.add(answer_user);
 				ans_list.add(comments);
 				answer_map.put(tempans, ans_list);
-				tempans = (String)arr[0];
-				System.out.println(answer_map);
-				comments = new ArrayList<Comments>();
-			}
-		
-		comments.add(new Comments((String)arr[2],(String)arr[3],""+arr[4]));
+				tempans = (String)arr[2];
+				comments = new ArrayList<CommentBuffer>();
 				
+			}
+			answer = (String)arr[0];
+			comments.add(new CommentBuffer((String)arr[3],(String)arr[4], new SimpleDateFormat("dd-MM-yyyy").format(arr[5])));
+			
 		}
 		
-		answer_map.put(tempans, ans_list);
-		question_map.put("Answer Info",new HashMap<String, List<Object>>(answer_map));
-		System.out.println(answer_map);
+		ans_like = (Long) currentSession.createQuery("SELECT COUNT(al.answerId) FROM AnswerLike al WHERE al.answerId = :aid")
+											  .setParameter("aid", tempans)	
+											  .uniqueResult();
+			
+		answer_like.put("Like", ans_like);
+		answer_user.put("User ID", tempUser);
+		ans_list.add(answer_like);
+		ans_list.add(answer_user);
+		ans_list.add(comments);
+		answer_map.put(answer, ans_list);
 		
-		Integer ques_like = ((BigInteger)currentSession.createNativeQuery("SELECT count(qid) FROM question_like where qid=\""+questionId+"\"")
-							.uniqueResult()).intValue();
+		question_map.put("Answer Info",new HashMap<String, List<Object>>(answer_map));
+		
+		Long ques_like = (long)currentSession.createQuery("SELECT COUNT(questionId) FROM QuestionLike WHERE questionId = :qid")
+											 .setParameter("qid", questionId)
+											 .uniqueResult();
 		
 		question_map.put("Company", company_list);
 		question_map.put("Topic", topic_list);

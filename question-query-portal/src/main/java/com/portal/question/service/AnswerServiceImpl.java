@@ -30,9 +30,9 @@ public class AnswerServiceImpl implements AnswerService {
 
 	@Override 
 	@Transactional	
-	public AnswerLike saveAnswerLiked(AnswerLike questionLike) 		
+	public void saveAnswerLiked(AnswerLike questionLike) 		
 	{	
-		return answerDAO.likeAnswer(questionLike);	
+		answerDAO.likeAnswer(questionLike);	
 	}
 	
 	@Override

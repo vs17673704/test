@@ -34,7 +34,7 @@ public class AnswerRestController {
 	}
 	
 	@PostMapping("/like")
-	public AnswerLike likeQuestion(@RequestBody AnswerLike answerLike) 
+	public void likeQuestion(@RequestBody AnswerLike answerLike) 
 	{
 		String exception = "";
 		Users theUser = masterDataService.findUserById(answerLike.getUserId());
@@ -49,11 +49,11 @@ public class AnswerRestController {
 		if(exception!="")
 			throw new RuntimeException(exception);
 		
-		return answerService.saveAnswerLiked(answerLike);
+		answerService.saveAnswerLiked(answerLike);
 	}
 	
 	
-	@PostMapping("/main")
+	@PostMapping("/submit")
 	public String getQuestionDetails( @RequestBody Answers answer)
 	{
 		String missing = "";
@@ -71,18 +71,14 @@ public class AnswerRestController {
 			
 			if(masterDataService.findUserById(answer.getUserId())==null)
 			{
-				if(missing!="")	missing+="& ";
-				missing+=" User ";
+				if(missing!="")	missing+=" & ";
+				missing+="User ";
 			}
 			if(missing!="")
-			{
 				throw new RuntimeException(missing+" does not exist!");
-			}
 		
 			if(answer.getAnswer().length()<50 && answer.getAnswer().length()>500)
-		{
-			throw new RuntimeException("Characters in question must be under the range of 50 to 500 characters!");
-		}
+				throw new RuntimeException("Characters in the answer must be under the range of 50 to 500 characters!");
 
 		return answerService.saveAnswer(answer);
 	}
@@ -91,9 +87,9 @@ public class AnswerRestController {
 	public String getComments( @RequestBody AnswerComments comment)
 	{
 		String missing = "";
-			if((comment.getAnswerId()==null||comment.getAnswerId()=="")
-				||(comment.getUserId()==null||comment.getUserId()=="")
-				||(comment.getComment()==null||comment.getComment()==""))
+			if((comment.getAnswerId()== null || comment.getAnswerId()=="")
+			 ||(comment.getUserId()  == null || comment.getUserId()  =="")
+			 ||(comment.getComment() == null || comment.getComment() ==""))
 			{
 				throw new RuntimeException("Answer ID, user ID or comment required!");
 			}
@@ -115,14 +111,14 @@ public class AnswerRestController {
 		
 			if(comment.getComment().length()<50 && comment.getComment().length()>500)
 			{
-				throw new RuntimeException("Characters in question must be under the range of 50 to 500 characters!");
+				throw new RuntimeException("Characters in the comment must be under the range of 50 to 500 characters!");
 			}
 
 		return answerService.saveComment(comment);
 	}
 	
 	@SuppressWarnings("rawtypes")
-	@GetMapping("/question-search/{qid}")
+	@GetMapping("{qid}")
 	public Map getMap(@PathVariable(value = "qid") String questionId)
 	{
 		if(questionService.findQuestionById(questionId)==null)

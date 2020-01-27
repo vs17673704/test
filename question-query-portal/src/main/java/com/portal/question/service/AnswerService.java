@@ -10,7 +10,7 @@ public interface AnswerService {
 
 	public Answers findAnswerById(String answerId);
 
-	public AnswerLike saveAnswerLiked(AnswerLike questionLike);
+	public void saveAnswerLiked(AnswerLike questionLike);
 
 	public String saveAnswer(Answers answer);
 

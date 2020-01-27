@@ -10,8 +10,6 @@ public interface SubTopicCrudDAO {
 	
 	public SubTopic save(SubTopic subTopic);
 	
-	public String deleteById(String subTopic);
-	
 	public SubTopic findById(String subTopicId);
 	
 	

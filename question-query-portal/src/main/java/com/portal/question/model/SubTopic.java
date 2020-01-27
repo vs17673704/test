@@ -15,7 +15,7 @@ public class SubTopic
 	@Column(name = "subtopic")
 	private String subtopic;
 	@Column(name = "topic")
-	private String topic_name;
+	private String topicName;
 	
 	public SubTopic() 
 	{
@@ -25,7 +25,7 @@ public class SubTopic
 	public SubTopic(String subtopicId, String subtopic, String topicName) {
 		this.subtopicId = subtopicId;
 		this.subtopic = subtopic;
-		this.topic_name = topicName;
+		this.topicName = topicName;
 	}
 
 
@@ -33,7 +33,7 @@ public class SubTopic
 	
 	@Override
 	public String toString() {
-		return "SubTopic [subtopicId=" + subtopicId + ", subtopic=" + subtopic + ", topic_name=" + topic_name + "]";
+		return "SubTopic [subtopicId=" + subtopicId + ", subtopic=" + subtopic + ", topicName=" + topicName + "]";
 	}
 
 	public String getSubtopicId() {
@@ -52,12 +52,12 @@ public class SubTopic
 		this.subtopic = subtopic;
 	}
 
-	public String getTopic_name() {
-		return topic_name;
+	public String getTopicName() {
+		return topicName;
 	}
 
-	public void setTopic_name(String topic_name) {
-		this.topic_name = topic_name;
+	public void setTopicName(String topic_name) {
+		this.topicName = topic_name;
 	}
 
 	

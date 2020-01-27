@@ -16,13 +16,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import com.portal.question.dao.Comments;
 import com.portal.question.model.Company;
 import com.portal.question.model.QuestionCompanyMapping;
 import com.portal.question.model.QuestionLike;
 import com.portal.question.model.Questions;
 import com.portal.question.model.SubTopic;
 import com.portal.question.model.Topics;
+import com.portal.question.rest.CommentBuffer;
 
 public class TestJdbcSearch 
 {
@@ -48,7 +48,7 @@ public class TestJdbcSearch
 				String comment = null;
 				String comment_user = null;
 				String comment_date = null;
-				List<Comments> comments = new ArrayList<>();
+				List<CommentBuffer> comments = new ArrayList<>();
 				
 				List qid_list = new ArrayList();
 				List answer_list = new ArrayList();
@@ -97,11 +97,11 @@ public class TestJdbcSearch
 							tempans = (String)arr[0];
 							System.out.println(answer_map);
 							comment_list = new ArrayList();
-							comments = new ArrayList<Comments>();
+							comments = new ArrayList<CommentBuffer>();
 							
 						}
 						
-						comments.add(new Comments((String)arr[2],(String)arr[3],""+arr[4]));
+					//	comments.add(new Comments((String)arr[2],(String)arr[3],(java.sql.Date) arr[4]));
 						
 //						comment =      "Comment:"+(String)arr[2];
 //						comment_user = "User   :"+(String)arr[3];

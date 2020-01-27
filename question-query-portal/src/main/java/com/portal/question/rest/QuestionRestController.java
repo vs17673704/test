@@ -32,7 +32,7 @@ public class QuestionRestController {
 	
 
 	@PostMapping("/like")
-	public QuestionLike likeQuestion(@RequestBody QuestionLike questionLike) 
+	public void likeQuestion(@RequestBody QuestionLike questionLike) 
 	{
 		String exception = "";
 		Users theUser = masterDataService.findUserById(questionLike.getUserId());
@@ -47,11 +47,11 @@ public class QuestionRestController {
 		if(exception!="")
 			throw new RuntimeException(exception);
 		
-		return questionService.saveQuestionLiked(questionLike);
+		questionService.saveQuestionLiked(questionLike);
 	}
 		
 	
-	@PostMapping("/main")
+	@PostMapping("/submit")
 	public String getQuestionDetails( @RequestBody QuestionBuffer questionBuffer)
 	{
 		String missing = "";
@@ -88,13 +88,14 @@ public class QuestionRestController {
 	
 	
 	@SuppressWarnings("rawtypes")
-	@GetMapping("/questinlist")
+	@GetMapping("/search")
 	Map searchResult(@RequestParam(required = false) List<String> company,
 					 @RequestParam(required = false) List<String> subtopic,
 					 @RequestParam(required = false) List<String> tag,
 					 @RequestParam(required = false) Integer like,
 					 @RequestParam(required = false) String date)
 	{
+		
 		return questionService.getSearchResults(company,subtopic,tag,like,date);
 		
 	}

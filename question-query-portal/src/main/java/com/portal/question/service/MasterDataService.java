@@ -15,13 +15,11 @@ public interface MasterDataService {
 	
 	public String deleteTag(String tag);
 
-	public List<String> saveTag(Tags listOfTags);
+	public List<Tags> saveTag(List<String> listOfTags);
 	
 	/////////////////////////////////////////////////////////////////////        TOPICS        \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public List<Topics> findAllTopics();
 	
-	public String deleteTopic(String topic);
-
 	public List<String> saveTopics(Topics topic);
 	
 	public Topics findTopic(String topic);
@@ -43,14 +41,10 @@ public interface MasterDataService {
 	
 	public SubTopic saveSubTopic(SubTopic subTopic);
 	
-	public String deleteSubTopicById(String subTopic);
-	
 	public SubTopic findSubTopicById(String subTopicId);
 
 	/////////////////////////////////////////////////////////////////////         USER         \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public Users saveUser(Users userdetails);
-
-	public String deleteUserById(String userId);
 
 	public Users findUserById(String userId);
 	

@@ -34,9 +34,9 @@ public class QuestionServiceImpl implements QuestionService
 
 	@Override 
 	@Transactional	
-	public QuestionLike saveQuestionLiked(QuestionLike questionLike) 		
+	public void saveQuestionLiked(QuestionLike questionLike) 		
 	{	
-		return questionDAO.likeQuestion(questionLike);	
+		questionDAO.likeQuestion(questionLike);	
 	}
 
 	@Override

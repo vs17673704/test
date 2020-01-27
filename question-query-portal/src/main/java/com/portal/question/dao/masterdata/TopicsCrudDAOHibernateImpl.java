@@ -28,7 +28,7 @@ public class TopicsCrudDAOHibernateImpl implements TopicsCrudDAO {
 	public List<Topics> findAll() 
 	{
 		Session currentSession = entityManager.unwrap(Session.class);
-		Query<Topics> theQuery =	currentSession.createQuery("from Topics", Topics.class);
+		Query<Topics> theQuery =	currentSession.createQuery("FROM Topics", Topics.class);
 		List<Topics> topics= theQuery.getResultList();
 		return topics;
 	}
@@ -39,18 +39,6 @@ public class TopicsCrudDAOHibernateImpl implements TopicsCrudDAO {
 		Session currentSession 	=	entityManager.unwrap(Session.class);	
 		Topics foundTopic 	=	currentSession.get(Topics.class, topic);
 		return foundTopic;
-	}
-
-	
-	@Override
-	public String delete(String topic) 
-	{
-		Session currentSession = entityManager.unwrap(Session.class);		
-		//Query theQuery = 	currentSession.createQuery("delete from Topics where topic=:topic");
-		//theQuery.setParameter("topic", topic);
-		//theQuery.executeUpdate();
-		currentSession.delete(currentSession.get(Topics.class, topic));
-		return "Deleted topic:" + topic;
 	}
 
 	@Override

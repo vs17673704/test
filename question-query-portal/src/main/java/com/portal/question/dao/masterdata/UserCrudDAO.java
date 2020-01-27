@@ -8,6 +8,4 @@ public interface UserCrudDAO {
 	
 	public Users save(Users userdetails);
 	
-	public String deleteById(String userId);
-	
 }

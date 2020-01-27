@@ -39,14 +39,14 @@ public class SubTopicCRUDRestController
 	}
 	
 	
-	
 	@PostMapping("/subtopic")
 	public SubTopic addSubtopic(@RequestBody SubTopic subTopic) 
 	{
-		//if(subTopic.getSubtopicId()==""||subTopic.getSubtopic()==""||subTopic.getTopic()=="")
-			//throw new RuntimeException("All paramenters not entered");
-		//else
-			System.out.println(subTopic);
+		if(subTopic.getSubtopicId()==""||subTopic.getSubtopic()==""||subTopic.getTopicName()=="")
+			throw new RuntimeException("All paramenters not entered");
+		else if(subTopic.getSubtopicId()==null||subTopic.getSubtopic()==null||subTopic.getTopicName()==null)
+			throw new RuntimeException("Use proper paameter name to save data!");
+		else
 			return masterDataService.saveSubTopic(subTopic);
 	}
 	
@@ -58,18 +58,6 @@ public class SubTopicCRUDRestController
 		
 	}
 	
-	
-	@DeleteMapping("/subtopics/{subtopic}")
-	public String deleteSubTopic(@PathVariable String subTopicId) 
-	{
-		SubTopic tempSubTopic = masterDataService.findSubTopicById(subTopicId);
-		if (tempSubTopic == null) 
-		{
-			throw new RuntimeException("Sub-topic id not found - " + subTopicId);
-		}	
-		masterDataService.deleteSubTopicById(subTopicId);
-		return "Deleted subtopic id - " + subTopicId;
-	}
 	
 }
 

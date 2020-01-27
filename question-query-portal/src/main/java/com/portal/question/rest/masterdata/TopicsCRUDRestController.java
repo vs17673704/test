@@ -47,18 +47,6 @@ public class TopicsCRUDRestController
 	}
 	
 	
-	@DeleteMapping("/topics/{topic}")
-	public String deleteTag(@PathVariable String topic) 
-	{
-		Topics tempTopic = masterDataService.findTopic(topic);
-		if (tempTopic == null) 
-		{
-			throw new RuntimeException("Topic not found - " + topic);
-		}	
-		else
-			return masterDataService.deleteTopic(topic);
-	}
-	
 }
 
 

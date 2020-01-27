@@ -46,13 +46,11 @@ public class MasterDataServiceImpl implements MasterDataService
 
 	@Override	@Transactional	public String deleteTag(String tag) 			 	{		return tagsCrudDAO.delete(tag);			}
 
-	@Override	@Transactional	public List<String> saveTag(Tags tags) 				{		return tagsCrudDAO.save(tags);			}
+	@Override	@Transactional	public List<Tags> saveTag(List<String> tags) 				{		return tagsCrudDAO.save(tags);			}
 
 	
 	/*--------------------------------------------------------------------------TOPICS----------------------------------------------------------------------------------*/
 	@Override	@Transactional	public List<Topics> findAllTopics() 				{		return topicCrudDAO.findAll();			}
-
-	@Override	@Transactional	public String deleteTopic(String topic) 			{		return topicCrudDAO.delete(topic);		}
 
 	@Override	@Transactional	public List<String> saveTopics(Topics topics) 		{		return topicCrudDAO.save(topics);		}
 	
@@ -74,15 +72,10 @@ public class MasterDataServiceImpl implements MasterDataService
 
 	@Override	@Transactional	public SubTopic saveSubTopic(SubTopic subTopic)		{	return subTopicCrudDAO.save(subTopic);		}
 
-	@Override	@Transactional	public String deleteSubTopicById(String topic)		{	return subTopicCrudDAO.deleteById(topic);	}
-
 	@Override	@Transactional	public SubTopic findSubTopicById(String subTopicId)	{	return subTopicCrudDAO.findById(subTopicId);}
 
 	/*---------------------------------------------------------------------------USER--------------------------------------------------------------------------------*/
-	@Override	@Transactional	public Users saveUser(Users userdetails)			{System.out.println("INSIDE SAVE USER SERVICE");	
-		return userCrudDAO.save(userdetails);		}
-
-	@Override	@Transactional	public String deleteUserById(String userId)			{	return userCrudDAO.deleteById(userId);		}
+	@Override	@Transactional	public Users saveUser(Users userdetails)			{	return userCrudDAO.save(userdetails);		}
 
 	@Override	@Transactional	public Users findUserById(String userId)			{	return userCrudDAO.findById(userId);		}
 	

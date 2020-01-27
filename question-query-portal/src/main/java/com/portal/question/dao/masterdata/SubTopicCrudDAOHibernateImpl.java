@@ -37,22 +37,11 @@ public class SubTopicCrudDAOHibernateImpl implements SubTopicCrudDAO {
 	public SubTopic save(SubTopic subTopic) 
 	{
 		Session currentSession = entityManager.unwrap(Session.class);
-		currentSession.saveOrUpdate(new Topics(subTopic.getTopic_name()));
+		currentSession.saveOrUpdate(new Topics(subTopic.getTopicName()));
 		currentSession.saveOrUpdate(subTopic);
 		return subTopic;
 	}
 
-
-	@Override
-	public String deleteById(String subTopic) 
-	{
-		Session currentSession = entityManager.unwrap(Session.class);		
-		@SuppressWarnings("rawtypes")
-		Query theQuery = 	currentSession.createQuery("delete from Company where id=:subTopicId");
-		theQuery.setParameter("subTopicId", subTopic);
-		theQuery.executeUpdate();
-		return "Deleted sub-topic id - " + subTopic;
-	}
 
 	@Override
 	public SubTopic findById(String subTopicId) 

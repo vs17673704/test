@@ -1,17 +1,17 @@
-package com.portal.question.dao;
+package com.portal.question.rest;
 
-public class Comments
+public class CommentBuffer
 {
 	private String comment;
 	private String userId;
 	private String date;
 	
-	public Comments() 
+	public CommentBuffer() 
 	{
 		
 	}
 
-	public Comments(String comment, String userId, String string) {
+	public CommentBuffer(String comment, String userId, String string) {
 		this.comment = comment;
 		this.userId = userId;
 		this.date = string;
