@@ -1,6 +1,6 @@
 # CLAUDE CODE — MASTER IMPLEMENTATION PROMPT
 
-# BUILD COMPLETE WORKING PWA FROM BRD + DESIGN_UPDATED.MD + FIREBASE FCM
+# BUILD COMPLETE WORKING PWA FROM BRD + DesignD.MD + FIREBASE FCM
 
 You are the lead software architect, senior full-stack developer, database developer, UI/UX engineer, PWA engineer, Firebase/FCM integration engineer, QA engineer, security engineer and debugging agent responsible for delivering a **complete, runnable, end-to-end local prototype** for the Referral & Reward Program Platform.
 
@@ -50,7 +50,7 @@ The project contains these primary source documents/configuration sources:
 
 ```text
 BRD.md
-Design_updated.md
+Designd.md
 firebase_prerequisites
 ```
 
@@ -75,7 +75,7 @@ BRD.md
     ↓
 Business / Financial / Security / Lifecycle / NFR Authority
 
-Design_updated.md
+Designd.md
     ↓
 UI / UX / Route / Screen / Interaction Authority
 
@@ -111,7 +111,7 @@ Current Implementation Evidence
 * external integration behavior;
 * non-functional requirements.
 
-`Design_updated.md` controls:
+`Designd.md` controls:
 
 * required routes;
 * screen inventory;
@@ -139,7 +139,7 @@ If `BRD.md` explicitly marks a clarification as:
 
 do not silently convert it into an unquestionable business rule. Document the implementation assumption and isolate it so it can be changed later.
 
-Before implementation, read the **entire** `BRD.md` and the **entire** `Design_updated.md`.
+Before implementation, read the **entire** `BRD.md` and the **entire** `Designd.md`.
 
 ---
 
@@ -305,7 +305,7 @@ Use versions compatible with the current project and supported Firebase APIs.
 Before changing code:
 
 1. Read complete `BRD.md`.
-2. Read complete `Design_updated.md`.
+2. Read complete `Designd.md`.
 3. Read complete `firebase_prerequisites`.
 4. Inspect project structure.
 5. Inspect current routes.
@@ -517,7 +517,7 @@ FCM is only the Push Notification transport.
 
 # 11. COMPLETE ROUTE INVENTORY
 
-Do not trust a stale aggregate route count in `Design_updated.md`.
+Do not trust a stale aggregate route count in `Designd.md`.
 
 Derive the unique route inventory from the current document and screen map.
 
@@ -2923,7 +2923,7 @@ DO NOT:
 ## Core
 
 [ ] Full BRD read
-[ ] Full Design_updated.md read
+[ ] Full Designd.md read
 [ ] Full firebase_prerequisites read
 [ ] Route inventory derived
 [ ] Traceability created
@@ -3219,7 +3219,7 @@ Execute exactly:
 
 ```text
 1. Read BRD.md completely.
-2. Read Design_updated.md completely.
+2. Read Designd.md completely.
 3. Read firebase_prerequisites completely.
 4. Read AUDIT.md if present.
 5. Inspect the entire existing project.
@@ -3247,7 +3247,7 @@ Execute exactly:
 27. Rerun failed tests.
 28. Run regression.
 29. Re-audit BRD.
-30. Re-audit Design_updated.md.
+30. Re-audit Designd.md.
 31. Update docs/requirements-traceability.md.
 32. Update docs/progress.md.
 33. Perform final build/tests.
@@ -3263,7 +3263,7 @@ BRD.md
     ↓
 Business truth
 
-Design_updated.md
+Designd.md
     ↓
 UI / route / interaction truth
 
